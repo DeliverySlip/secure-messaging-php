@@ -12,8 +12,8 @@ use SecureMessaging\SecureTypes;
 
 final class ActionTypeEnum
 {
-    const NEW = "New";
-    const REPLY = "Reply";
-    const REPLYALL = "ReplyAll";
-    const FORWARD = "Forward";
+    const ACTIONTYPE_NEW = "New";
+    const ACTIONTYPE_REPLY = "Reply";
+    const ACTIONTYPE_REPLYALL = "ReplyAll";
+    const ACTIONTYPE_FORWARD = "Forward";
 }

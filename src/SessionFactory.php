@@ -14,6 +14,8 @@ use GuzzleHttp\Client;
 class SessionFactory
 {
 
+    private final function __construct(){}
+
     public static function login(Credentials $credentials, SecureTypes\String $baseURL, SecureTypes\String $portalCode){
         $guzzleClient = new Client();
         $apiBaseURL = $baseURL . "/" . $portalCode . "/api";

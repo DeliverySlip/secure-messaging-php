@@ -28,9 +28,6 @@ class SecureMessenger
         $this->portalCode = $portalCode;
         $this->baseURL = $baseURL;
 
-
-
         $this->guzzleClient = new Client();
-
     }
 }

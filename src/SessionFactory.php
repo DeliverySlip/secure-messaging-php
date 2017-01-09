@@ -42,15 +42,17 @@ class SessionFactory
         $guzzleClient = new Client();
 
         $response = $guzzleClient->request("POST", $session->getAPIBaseURL() . "/logout", [
+            "exceptions" => false,
             "headers" => [
                 "x-sm-session-token" => $session->getSessionToken()->toString()
             ]
         ]);
 
-        if($response->getStatusCode() == 200){
+        if($response->getStatusCode() == 200) {
             return new SecureTypes\Boolean(true);
         }else{
             return new SecureTypes\Boolean(false);
         }
+
     }
 }

@@ -28,28 +28,9 @@ class SecureMessenger
         $this->portalCode = $portalCode;
         $this->baseURL = $baseURL;
 
-        $this->apiBaseURL = $baseURL . "/" . $portalCode . "/api";
+
 
         $this->guzzleClient = new Client();
 
     }
-
-    public function login(Credentials $credentials){
-        $this->credentials = $credentials;
-
-        $response = $this->guzzleClient->request("POST", $this->apiBaseURL . "/login",[
-            'json' => (Array)$credentials->generateJSONObject()
-        ]);
-
-        if($response->getStatusCode() == 200){
-            $jsonResponse = $response->getBody()->getContents();
-            $jsonObject = json_decode($jsonResponse);
-
-            return new Session(new SecureTypes\String($jsonObject->sessionToken));
-        }else{
-            return null;
-        }
-    }
-
-
 }

@@ -8,6 +8,7 @@
 
 namespace SecureMessaging;
 
+use SecureMessaging\Lib\HttpRequestHandler;
 use SecureMessaging\SecureTypes;
 use GuzzleHttp\Client;
 
@@ -20,10 +21,14 @@ class SessionFactory
         $guzzleClient = new Client();
         $apiBaseURL = $baseURL . "/" . $portalCode . "/api";
 
-        $response = $guzzleClient->request("POST", $apiBaseURL . "/login",[
-            'json' => (Array)$credentials->generateJSONObject()
-        ]);
+        $requestHandler = new HttpRequestHandler($apiBaseURL);
+        $responseHandler = $requestHandler->post("/login", null,
+            $credentials->generateRequestObjectForCredentials());
 
+
+        if($responseHandler->getStatusCode() === 200){
+
+        }
 
         if($response->getStatusCode() == 200){
             $jsonResponse = $response->getBody()->getContents();

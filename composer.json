@@ -1,5 +1,5 @@
 {
-    "name": "bensoer/secure-messaging-php",
+    "name": "deliveryslip/secure-messaging-php",
     "type": "library",
     "require": {
         "guzzlehttp/guzzle": "~6.0",
@@ -19,7 +19,9 @@
         "psr-4":{
             "SecureMessaging\\": "src\\",
             "SecureMessaging\\SecureTypes\\": "lib\\securetypes\\",
-            "SecureMessaging\\Lib\\":"lib\\lib\\"
+            "SecureMessaging\\Lib\\":"lib\\lib\\",
+            "SecureMessaging\\Models\\Request":"src\\models\\request\\",
+            "SecureMessaging\\Models\\Response":"src\\models\\response\\"
         }
     }
 }

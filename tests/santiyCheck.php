@@ -23,7 +23,7 @@ $credentials = new Credentials($username,$password);
 //$messenger = new SecureMessenger(new SecureTypes\String("open"), new SecureTypes\String("https://us1.secure-messaging.com"));
 //$messenger->login($credentials);
 
-$session = \SecureMessaging\SessionFactory::login($credentials, new SecureTypes\String("https://us1.secure-messaging.com"),new SecureTypes\String("open"));
+$session = \SecureMessaging\SessionFactory::login($credentials, new SecureTypes\String( $ini_array["endpoint"]),new SecureTypes\String($ini_array["servicecode"]));
 if($session != null){
     print("Successfully Created Session!\n");
     $secureMessage = \SecureMessaging\SecureMessageFactory::createNewMessage($session);

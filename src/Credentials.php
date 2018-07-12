@@ -8,26 +8,58 @@
 
 namespace SecureMessaging;
 
+use JsonSchema\Exception\InvalidConfigException;
+use SecureMessaging\models\request\AuthenticateRequest;
+use SecureMessaging\Models\Request\LoginRequest;
 use SecureMessaging\SecureTypes;
 use SecureMessaging\Lib;
 
-class Credentials implements Lib\IJSONSerializable
+class Credentials
 {
-    private $username;
-    private $password;
+    private $username = null;
+    private $password = null;
+    private $authenticationToken = null;
 
-    public function __construct(SecureTypes\String $username, SecureTypes\String $password){
-        $this->username = $username;
-        $this->password = $password;
+    public static function createWithUsernameAndPassword(SecureTypes\String $username, SecureTypes\String $password){
+        return new Credentials(["usernanme" => $username->toString(), "password" => $password->toString()]);
     }
 
-    public function generateJSONObject()
-    {
-        $jsonObject = new \stdClass();
-        $jsonObject->username = $this->username->toString();
-        $jsonObject->password = $this->password->toString();
+    public static function createWithAuthenticationToken(SecureTypes\String $authenticationToken){
+        return new Credentials(["authenticationToken" => $authenticationToken->toString()]);
+    }
 
-        return $jsonObject;
+    public function __construct(array $config){
+
+        if (array_key_exists("authenticationToken", $config)){
+            $this->authenticationToken = $config["authenticationToken"];
+        }else if(array_key_exists("username", $config) && array_key_exists("password", $config)){
+            $this->username = $config["username"];
+            $this->password = $config["password"];
+        }else{
+            throw new InvalidConfigException("Invalid Configuration Passed For Credentials Object");
+        }
+    }
+
+    public function generateRequestObjectForCredentials(){
+
+        if($this->authenticationToken != null && $this->password != null && $this->username != null){
+            throw new InvalidConfigException("An Authentication Token And Username and Password Have Been 
+            Configured. Credentials can only be configured with one or the other. Check which configuration is desired 
+            and that you are not using the same instance twice");
+        }
+
+        if($this->authenticationToken != null){
+            $authenticationRequest = new AuthenticateRequest();
+            $authenticationRequest->authenticationToken = $this->authenticationToken;
+            return $authenticationRequest;
+        }else if($this->username != null & $this->password != null){
+            $loginRequest = new LoginRequest();
+            $loginRequest->username = $this->username;
+            $loginRequest->password = $this->password;
+            return $loginRequest;
+        }else{
+            throw new InvalidConfigException("Invalid Configuration Passed For Credentials Object");
+        }
 
     }
 

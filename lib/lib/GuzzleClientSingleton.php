@@ -29,6 +29,6 @@ final class GuzzleClientSingleton
     private final function __construct(){}
 
     public final function __destruct(){
-        unset(self::$instance);
+        self::$instance = null;
     }
 }

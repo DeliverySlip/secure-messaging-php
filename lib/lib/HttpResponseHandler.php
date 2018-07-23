@@ -25,5 +25,16 @@ class HttpResponseHandler
 
     public function deserializeBodyIntoObject($class){
 
+        $jsonResponse = $this->response->getBody()->getContents();
+        $jsonObject = json_decode($jsonResponse);
+
+        $object = new $class($jsonObject);
+
+        return $object;
+
+    }
+
+    public function getJsonBody(){
+        return json_decode($this->response->getBody()->getContents(), true);
     }
 }

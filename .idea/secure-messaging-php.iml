@@ -2,10 +2,12 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/src/models/request" isTestSource="false" packagePrefix="SecureMessaging\Models\Request" />
+      <sourceFolder url="file://$MODULE_DIR$/src/models/request" isTestSource="false" packagePrefix="SecureMessaging\Models\Request\" />
       <sourceFolder url="file://$MODULE_DIR$/lib/lib" isTestSource="false" packagePrefix="SecureMessaging\Lib\" />
       <sourceFolder url="file://$MODULE_DIR$/lib/securetypes" isTestSource="false" packagePrefix="SecureMessaging\SecureTypes\" />
-      <sourceFolder url="file://$MODULE_DIR$/src/models/response" isTestSource="false" packagePrefix="SecureMessaging\Models\Response" />
+      <sourceFolder url="file://$MODULE_DIR$/src/models/response" isTestSource="false" packagePrefix="SecureMessaging\Models\Response\" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ccc" isTestSource="false" packagePrefix="SecureMessaging\CCC\" />
+      <sourceFolder url="file://$MODULE_DIR$/src/utils" isTestSource="false" packagePrefix="SecureMessaging\Utils\" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" packagePrefix="SecureMessaging\" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/instantiator" />

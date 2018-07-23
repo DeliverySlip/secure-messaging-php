@@ -37,7 +37,7 @@ class SecureMessageFactory
             $jsonResponse = $response->getBody()->getContents();
             $jsonObject = json_decode($jsonResponse);
 
-            $secureMessage = new SecureMessage(new SecureTypes\String($jsonObject->messageGuid));
+            $secureMessage = new SecureMessage($jsonObject->messageGuid);
             return $secureMessage;
 
         }else{

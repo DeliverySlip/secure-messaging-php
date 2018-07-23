@@ -20,8 +20,10 @@
             "SecureMessaging\\": "src\\",
             "SecureMessaging\\SecureTypes\\": "lib\\securetypes\\",
             "SecureMessaging\\Lib\\":"lib\\lib\\",
-            "SecureMessaging\\Models\\Request":"src\\models\\request\\",
-            "SecureMessaging\\Models\\Response":"src\\models\\response\\"
+            "SecureMessaging\\Models\\Request\\":"src\\models\\request\\",
+            "SecureMessaging\\Models\\Response\\":"src\\models\\response\\",
+            "SecureMessaging\\Utils\\":"src\\utils\\",
+            "SecureMessaging\\CCC\\":"src\\ccc\\"
         }
     }
 }

@@ -10,6 +10,7 @@ namespace SecureMessaging;
 
 
 use GuzzleHttp\Client;
+use SecureMessaging\ccc\ServiceCodeResolver;
 use SecureMessaging\SecureTypes;
 use SecureMessaging\Credentials;
 
@@ -17,17 +18,29 @@ use SecureMessaging\Credentials;
 class SecureMessenger
 {
 
-    private $portalCode;
-    private $baseURL;
-    private $credentials;
-    private $apiBaseURL;
+    private $messagingApiBaseUrl; // this is a messaging api base url
+    private $session;
 
-    private $guzzleClient;
+    public static function resolveViaServiceCode($serviceCode){
 
-    public function __construct(SecureTypes\String $portalCode, SecureTypes\String $baseURL){
-        $this->portalCode = $portalCode;
-        $this->baseURL = $baseURL;
-
-        $this->guzzleClient = new Client();
+        $secureMessagingApiBaseUrl = ServiceCodeResolver::resolve($serviceCode);
+        return new SecureMessenger($secureMessagingApiBaseUrl);
     }
+
+    public function __construct($messagingApiBaseURLOrSessionObject){
+
+        if(is_string($messagingApiBaseURLOrSessionObject)){
+            $this->messagingApiBaseUrl = $messagingApiBaseURLOrSessionObject;
+        }else{
+            //it is a session object
+            $this->session = $messagingApiBaseURLOrSessionObject;
+            $this->messagingApiBaseUrl = $messagingApiBaseURLOrSessionObject->getAPIBaseURL();
+        }
+    }
+
+    public function login(Credentials $credentials){
+        $this->session = SessionFactory::createSession($credentials, $this->messagingApiBaseUrl);
+    }
+
+
 }

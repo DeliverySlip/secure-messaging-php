@@ -21,7 +21,7 @@ class SecureMessage implements Lib\IJSONSerializable
 
     private $messageGuid;
 
-    public function __construct(SecureTypes\String $messageGuid){
+    public function __construct($messageGuid){
         $this->messageGuid = $messageGuid;
     }
 

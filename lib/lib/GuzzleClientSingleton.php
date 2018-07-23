@@ -14,12 +14,24 @@ use GuzzleHttp\Client;
 final class GuzzleClientSingleton
 {
     private static $instance = null;
+    private static $verifyCertificate = true;
+
+    public static function disableCertificateVerification(){
+        self::$verifyCertificate = false;
+    }
 
     public static function getInstance(){
         if(self::$instance == null){
-            self::$instance = new Client([
+
+            $config = [
                 "exceptions" => false
-            ]);
+            ];
+
+            if(self::$verifyCertificate == false){
+                $config["verify"] = false;
+            }
+
+            self::$instance = new Client($config);
         }
 
         return self::$instance;

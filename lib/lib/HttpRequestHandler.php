@@ -17,7 +17,11 @@ class HttpRequestHandler
         $this->baseUrl = $baseUrl;
     }
 
-    public function get($requestUrl, $requestHeaders){
+    public function getBaseURL(){
+        return $this->baseUrl;
+    }
+
+    public function get($requestUrl, $requestHeaders = null){
 
         $client = GuzzleClientSingleton::getInstance();
 
@@ -26,7 +30,7 @@ class HttpRequestHandler
             $options["headers"] = $requestHeaders;
         }
 
-        $response = $client->get($requestUrl, $options);
+        $response = $client->get($this->baseUrl . "/" . $requestUrl, $options);
 
         return new HttpResponseHandler($response);
 
@@ -46,7 +50,7 @@ class HttpRequestHandler
             $options["json"] = $jsonRequest;
         }
 
-        $response = $client->post($requestUrl, $options);
+        $response = $client->post($this->baseUrl . "/" . $requestUrl, $options);
 
         return new HttpResponseHandler($response);
     }
@@ -65,7 +69,7 @@ class HttpRequestHandler
             $options["json"] = $jsonRequest;
         }
 
-        $response = $client->put($requestUrl, $options);
+        $response = $client->put($this->baseUrl . "/" . $requestUrl, $options);
 
         return new HttpResponseHandler($response);
     }
@@ -79,7 +83,7 @@ class HttpRequestHandler
             $options["headers"] = $requestHeaders;
         }
 
-        $response = $client->delete($requestUrl, $options);
+        $response = $client->delete($this->baseUrl . "/" . $requestUrl, $options);
 
         return new HttpResponseHandler($response);
     }

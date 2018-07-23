@@ -20,12 +20,12 @@ class Credentials
     private $password = null;
     private $authenticationToken = null;
 
-    public static function createWithUsernameAndPassword(SecureTypes\String $username, SecureTypes\String $password){
-        return new Credentials(["usernanme" => $username->toString(), "password" => $password->toString()]);
+    public static function createWithUsernameAndPassword($username, $password){
+        return new Credentials(["usernanme" => $username, "password" => $password]);
     }
 
-    public static function createWithAuthenticationToken(SecureTypes\String $authenticationToken){
-        return new Credentials(["authenticationToken" => $authenticationToken->toString()]);
+    public static function createWithAuthenticationToken($authenticationToken){
+        return new Credentials(["authenticationToken" => $authenticationToken]);
     }
 
     public function __construct(array $config){

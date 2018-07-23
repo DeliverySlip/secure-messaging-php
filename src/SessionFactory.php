@@ -17,32 +17,34 @@ class SessionFactory
 
     private final function __construct(){}
 
-    public static function login(Credentials $credentials, SecureTypes\String $baseURL, SecureTypes\String $portalCode){
-        $guzzleClient = new Client();
-        $apiBaseURL = $baseURL . "/" . $portalCode . "/api";
+    public static function createSession(Credentials $credentials, $messagingApiBaseUrl){
 
-        $requestHandler = new HttpRequestHandler($apiBaseURL);
+        $requestHandler = new HttpRequestHandler($messagingApiBaseUrl);
         $responseHandler = $requestHandler->post("/login", null,
             $credentials->generateRequestObjectForCredentials());
 
-
-        if($responseHandler->getStatusCode() === 200){
-
-        }
-
-        if($response->getStatusCode() == 200){
-            $jsonResponse = $response->getBody()->getContents();
-            $jsonObject = json_decode($jsonResponse);
-
-            unset($guzzleClient);
-            return new Session(new SecureTypes\String($jsonObject->sessionToken), $portalCode, $baseURL);
+        if($responseHandler->getStatusCode() == 200){
+            $jsonObject = $responseHandler->getJsonBody();
+            return new Session($jsonObject["sessionToken"], $messagingApiBaseUrl);
         }else{
-            unset($guzzleClient);
             return null;
         }
     }
 
-    public static function logout(Session $session){
+    public static function createSessionWithRequestHandler(Credentials $credentials, HttpRequestHandler $requestHandler){
+
+        $responseHandler = $requestHandler->post("/login", null,
+            $credentials->generateRequestObjectForCredentials());
+
+        if($responseHandler->getStatusCode() == 200){
+            $jsonObject = $responseHandler->getJsonBody();
+            return new Session($jsonObject["sessionToken"], $requestHandler->getBaseURL());
+        }else{
+            return null;
+        }
+    }
+
+    /*public static function logout(Session $session){
 
         $guzzleClient = new Client();
 
@@ -59,5 +61,5 @@ class SessionFactory
             return new SecureTypes\Boolean(false);
         }
 
-    }
+    }*/
 }

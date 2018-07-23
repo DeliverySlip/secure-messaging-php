@@ -14,15 +14,16 @@ class Session
 {
 
     private $sessionToken;
-    private $portalCode;
-    private $baseURL;
-    private $apiBaseURL;
+    private $messagingApiBaseUrl;
+    //private $portalCode;
+    //private $baseURL;
+    //private $apiBaseURL;
 
-    public function __construct(SecureTypes\String $sessionToken, SecureTypes\String $portalCode, SecureTypes\String $baseURL){
+    public function __construct($sessionToken, $messagingApiBaseUrl){
         $this->sessionToken = $sessionToken;
-        $this->portalCode = $portalCode;
-        $this->baseURL = $baseURL;
-        $this->apiBaseURL = $baseURL . "/" . $portalCode . "/api";
+        //$this->portalCode = $portalCode;
+        $this->messagingApiBaseUrl = $messagingApiBaseUrl;
+        //$this->apiBaseURL = $baseURL . "/" . $portalCode . "/api";
     }
 
     public function getSessionToken(){
@@ -30,6 +31,6 @@ class Session
     }
 
     public function getAPIBaseURL(){
-        return $this->apiBaseURL;
+        return $this->messagingApiBaseUrl;
     }
 }

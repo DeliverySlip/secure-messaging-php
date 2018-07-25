@@ -8,9 +8,7 @@
 
 namespace SecureMessaging\ccc;
 
-
-use SecureMessaging\Lib\GuzzleClientSingleton;
-use SecureMessaging\Lib\HttpRequestHandler;
+use SecureMessaging\Client\HttpRequestHandler;
 use SecureMessaging\Utils\Endpoints;
 
 class ServiceCodeResolver

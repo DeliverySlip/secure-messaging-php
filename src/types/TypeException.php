@@ -1,6 +1,6 @@
 <?php
 
-namespace SecureMessaging\SecureTypes;
+namespace SecureMessaging\Types;
 
 use Exception;
 /**

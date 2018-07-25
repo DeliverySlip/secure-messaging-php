@@ -6,7 +6,7 @@
  * Time: 10:21 AM
  */
 
-namespace SecureMessaging\Lib;
+namespace SecureMessaging\Enums;
 
 
 final class BodyFormatEnum

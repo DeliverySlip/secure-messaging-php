@@ -1,0 +1,12 @@
+{
+  "files":[
+    "composer.json",
+    "composer.lock"
+  ],
+  "directories":[
+    "vendor",
+    "src"
+  ],
+  "output":"secure-messaging-php.phar",
+  "stub":"bootstrapper.php"
+}

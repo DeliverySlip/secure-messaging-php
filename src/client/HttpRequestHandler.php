@@ -6,7 +6,9 @@
  * Time: 11:59 AM
  */
 
-namespace SecureMessaging\Lib;
+namespace SecureMessaging\Client;
+
+use SecureMessaging\Utils\ClassToJsonConverter;
 
 class HttpRequestHandler
 {

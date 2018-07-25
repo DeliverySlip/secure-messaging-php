@@ -6,9 +6,8 @@
  * Time: 10:04 PM
  */
 
-namespace SecureMessaging\Lib;
+namespace SecureMessaging\Enums;
 
-use SecureMessaging\SecureTypes;
 
 final class ActionTypeEnum
 {

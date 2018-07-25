@@ -6,13 +6,12 @@
  * Time: 8:06 PM
  */
 
-namespace SecureMessaging;
+namespace SecureMessaging\Auth;
 
 use JsonSchema\Exception\InvalidConfigException;
 use SecureMessaging\models\request\AuthenticateRequest;
 use SecureMessaging\Models\Request\LoginRequest;
-use SecureMessaging\SecureTypes;
-use SecureMessaging\Lib;
+use SecureMessaging\Types;
 
 class Credentials
 {

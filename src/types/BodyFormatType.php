@@ -6,13 +6,13 @@
  * Time: 10:22 AM
  */
 
-namespace SecureMessaging\SecureTypes;
+namespace SecureMessaging\Types;
 
-use SecureMessaging\SecureTypes;
-use SecureMessaging\Lib\BodyFormatEnum;
+use SecureMessaging\Types;
+use SecureMessaging\Enums\BodyFormatEnum;
 
 
-class BodyFormatType extends SecureTypes\PHP5String
+class BodyFormatType extends Types\PHP5String
 {
     public function __construct($bodyFormat){
         parent::__construct($bodyFormat);
@@ -26,7 +26,7 @@ class BodyFormatType extends SecureTypes\PHP5String
                 $this->value = $bodyFormat;
                 break;
             default:
-                throw new SecureTypes\TypeException("BodyFormatType - Constructor Passed Parameter Is Not A BodyFormatType");
+                throw new Types\TypeException("BodyFormatType - Constructor Passed Parameter Is Not A BodyFormatType");
         }
     }
 }

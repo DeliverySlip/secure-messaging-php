@@ -9,7 +9,7 @@
 namespace SecureMessaging\Models\Request;
 
 
-use SecureMessaging\Lib\BodyFormatEnum;
+use SecureMessaging\Enums\BodyFormatEnum;
 
 class SaveMessageRequest
 {

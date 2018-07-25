@@ -6,7 +6,7 @@
  * Time: 11:39 AM
  */
 
-namespace SecureMessaging\models\request;
+namespace SecureMessaging\Models\Request;
 
 
 class AuthenticateRequest

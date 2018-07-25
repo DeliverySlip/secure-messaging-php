@@ -6,7 +6,7 @@
  * Time: 9:25 PM
  */
 
-namespace SecureMessaging\Lib;
+namespace SecureMessaging\Client;
 
 
 use GuzzleHttp\Client;

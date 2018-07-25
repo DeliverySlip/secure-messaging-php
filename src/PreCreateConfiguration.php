@@ -9,8 +9,8 @@
 namespace SecureMessaging;
 
 
-use SecureMessaging\Lib\ActionTypeEnum;
-use SecureMessaging\SecureTypes\ActionType;
+use SecureMessaging\Enums\ActionTypeEnum;
+use SecureMessaging\Types\ActionType;
 
 class PreCreateConfiguration
 {

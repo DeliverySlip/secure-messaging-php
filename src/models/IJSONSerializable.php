@@ -6,7 +6,7 @@
  * Time: 9:16 PM
  */
 
-namespace SecureMessaging\Lib;
+namespace SecureMessaging\Models;
 
 
 interface IJSONSerializable

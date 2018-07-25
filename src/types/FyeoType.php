@@ -6,12 +6,12 @@
  * Time: 10:41 AM
  */
 
-namespace SecureMessaging\SecureTypes;
+namespace SecureMessaging\Types;
 
-use SecureMessaging\SecureTypes;
-use SecureMessaging\Lib\FyeoTypeEnum;
+use SecureMessaging\Types;
+use SecureMessaging\Enums\FyeoTypeEnum;
 
-class FyeoType extends SecureTypes\PHP5String
+class FyeoType extends Types\PHP5String
 {
 
     public function __construct($fyeoType)
@@ -30,7 +30,7 @@ class FyeoType extends SecureTypes\PHP5String
                 $this->value = $fyeoType;
                 break;
             default:
-                throw new SecureTypes\TypeException("FyeoType - Constructor Passed Parameter Is Not A FyeoType");
+                throw new Types\TypeException("FyeoType - Constructor Passed Parameter Is Not A FyeoType");
         }
 
     }

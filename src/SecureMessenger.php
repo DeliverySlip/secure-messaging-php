@@ -9,15 +9,14 @@
 namespace SecureMessaging;
 
 
-use GuzzleHttp\Client;
+use SecureMessaging\Auth\SessionFactory;
 use SecureMessaging\ccc\ServiceCodeResolver;
-use SecureMessaging\Lib\HttpRequestHandler;
+use SecureMessaging\Client\HttpRequestHandler;
 use SecureMessaging\Models\Request\MessageOptionsRequest;
 use SecureMessaging\Models\Request\PreCreateMessageRequest;
 use SecureMessaging\Models\Request\SaveMessageRequest;
 use SecureMessaging\Models\Request\SendMessageRequest;
-use SecureMessaging\SecureTypes;
-use SecureMessaging\Credentials;
+use SecureMessaging\Auth\Credentials;
 use SecureMessaging\Utils\BuildVersion;
 
 

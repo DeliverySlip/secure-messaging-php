@@ -6,11 +6,9 @@
  * Time: 7:05 PM
  */
 
-namespace SecureMessaging;
+namespace SecureMessaging\Auth;
 
-use SecureMessaging\Lib\HttpRequestHandler;
-use SecureMessaging\SecureTypes;
-use GuzzleHttp\Client;
+use SecureMessaging\Client\HttpRequestHandler;
 use SecureMessaging\Utils\BuildVersion;
 
 class SessionFactory
@@ -48,11 +46,12 @@ class SessionFactory
         if($responseHandler->getStatusCode() == 200){
             $jsonObject = $responseHandler->getJsonBody();
 
-            $responseHandler = $requestHandler->post("/user/settings",null, [
+            $responseHandler = $requestHandler->get("/user/settings", [
                 "x-sm-session-token" => $jsonObject["sessionToken"],
                 "x-sm-client-name" => BuildVersion::getBuildName(),
                 "x-sm-client-version" => BuildVersion::getBuildVersion()
             ]);
+
 
             return new Session($jsonObject["sessionToken"], $requestHandler->getBaseURL(),
                 $responseHandler->getJsonBody()["emailAddress"]);

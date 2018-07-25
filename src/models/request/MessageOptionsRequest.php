@@ -9,7 +9,7 @@
 namespace SecureMessaging\Models\Request;
 
 
-use SecureMessaging\Lib\FyeoTypeEnum;
+use SecureMessaging\Enums\FyeoTypeEnum;
 
 class MessageOptionsRequest
 {

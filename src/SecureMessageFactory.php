@@ -8,10 +8,8 @@
 
 namespace SecureMessaging;
 
-use GuzzleHttp\Client;
-use SecureMessaging\Lib\ActionTypeEnum;
-use SecureMessaging\SecureTypes;
-use SecureMessaging\SecureTypes\ActionType;
+use SecureMessaging\Enums\ActionTypeEnum;
+use SecureMessaging\Types\ActionType;
 
 class SecureMessageFactory
 {

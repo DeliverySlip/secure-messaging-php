@@ -6,9 +6,7 @@
  * Time: 9:47 PM
  */
 
-namespace SecureMessaging;
-
-use SecureMessaging\SecureTypes;
+namespace SecureMessaging\Auth;
 
 class Session
 {

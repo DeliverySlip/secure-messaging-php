@@ -7,13 +7,12 @@
  */
 
 
-use SecureMessaging\Credentials;
-use SecureMessaging\SecureTypes;
+use SecureMessaging\Client\GuzzleClientSingleton;
+use SecureMessaging\Auth\Credentials;
 use SecureMessaging\SecureMessenger;
 use SecureMessaging\CCC\ServiceCodeResolver;
-use SecureMessaging\Lib\GuzzleClientSingleton;
-use SecureMessaging\Lib\HttpRequestHandler;
-use SecureMessaging\SessionFactory;
+use SecureMessaging\Client\HttpRequestHandler;
+use SecureMessaging\Auth\SessionFactory;
 
 class LoginTest extends PHPUnit_Framework_TestCase
 {
@@ -31,7 +30,7 @@ class LoginTest extends PHPUnit_Framework_TestCase
             $password = $ini_array["password"];
 
             self::$portalCode = $ini_array["servicecode"];
-            self::$credentials = new SecureMessaging\Credentials(["username" => $username, "password" => $password]);
+            self::$credentials = new Credentials(["username" => $username, "password" => $password]);
 
             if(array_key_exists("baseURL", $ini_array)){
                 self::$baseURL = $ini_array["baseURL"];

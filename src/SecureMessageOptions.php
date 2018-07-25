@@ -8,9 +8,8 @@
 
 namespace SecureMessaging;
 
-
-use SecureMessaging\Lib\FyeoTypeEnum;
-use SecureMessaging\SecureTypes\FyeoType;
+use SecureMessaging\Enums\FyeoTypeEnum;
+use SecureMessaging\Types\FyeoType;
 
 class SecureMessageOptions
 {

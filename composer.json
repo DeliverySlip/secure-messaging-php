@@ -18,12 +18,15 @@
     "autoload":{
         "psr-4":{
             "SecureMessaging\\": "src\\",
-            "SecureMessaging\\SecureTypes\\": "lib\\securetypes\\",
-            "SecureMessaging\\Lib\\":"lib\\lib\\",
             "SecureMessaging\\Models\\Request\\":"src\\models\\request\\",
             "SecureMessaging\\Models\\Response\\":"src\\models\\response\\",
             "SecureMessaging\\Utils\\":"src\\utils\\",
-            "SecureMessaging\\CCC\\":"src\\ccc\\"
+            "SecureMessaging\\CCC\\":"src\\ccc\\",
+            "SecureMessaging\\Auth\\":"src\\auth\\",
+            "SecureMessaging\\Client\\":"src\\client\\",
+            "SecureMessaging\\Enums\\":"src\\enums\\",
+            "SecureMessaging\\Models\\":"src\\models\\",
+            "SecureMessaging\\Types\\":"src\\types\\"
         }
     }
 }

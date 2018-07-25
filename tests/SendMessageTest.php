@@ -1,13 +1,14 @@
 <?php
 
+use SecureMessaging\Auth\Credentials;
 use SecureMessaging\ccc\ServiceCodeResolver;
-use SecureMessaging\Lib\GuzzleClientSingleton;
+use SecureMessaging\Client\GuzzleClientSingleton;
 use SecureMessaging\SecureMessenger;
 use SecureMessaging\PreCreateConfiguration;
-use SecureMessaging\Lib\ActionTypeEnum;
-use SecureMessaging\SecureTypes\ActionType;
-use SecureMessaging\SecureTypes\BodyFormatType;
-use SecureMessaging\Lib\BodyFormatEnum;
+use SecureMessaging\Enums\ActionTypeEnum;
+use SecureMessaging\Types\ActionType;
+use SecureMessaging\Types\BodyFormatType;
+use SecureMessaging\Enums\BodyFormatEnum;
 use SecureMessaging\SecureMessageFactory;
 
 /**
@@ -36,7 +37,7 @@ class SendMessageTest extends PHPUnit_Framework_TestCase
 
             self::$recipientEmail = $ini_array["recipient"];
             self::$portalCode = $ini_array["servicecode"];
-            self::$credentials = new SecureMessaging\Credentials(["username" => $username, "password" => $password]);
+            self::$credentials = new Credentials(["username" => $username, "password" => $password]);
 
             if(array_key_exists("baseURL", $ini_array)){
                 self::$baseURL = $ini_array["baseURL"];

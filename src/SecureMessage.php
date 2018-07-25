@@ -8,12 +8,11 @@
 
 namespace SecureMessaging;
 
-use SecureMessaging\Lib;
-use SecureMessaging\SecureTypes;
-use SecureMessaging\SecureTypes\BodyFormatType;
-use SecureMessaging\Lib\BodyFormatEnum;
+use SecureMessaging\Models;
+use SecureMessaging\Types\BodyFormatType;
+use SecureMessaging\Enums\BodyFormatEnum;
 
-class SecureMessage implements Lib\IJSONSerializable
+class SecureMessage implements Models\IJSONSerializable
 {
     private $messageGuid = null;
     private $password = null;

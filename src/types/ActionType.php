@@ -6,12 +6,12 @@
  * Time: 10:18 PM
  */
 
-namespace SecureMessaging\SecureTypes;
+namespace SecureMessaging\Types;
 
-use SecureMessaging\SecureTypes;
-use SecureMessaging\Lib\ActionTypeEnum;
+use SecureMessaging\Types;
+use SecureMessaging\Enums\ActionTypeEnum;
 
-class ActionType extends SecureTypes\PHP5String
+class ActionType extends Types\PHP5String
 {
 
     public function __construct($actionType){
@@ -32,7 +32,7 @@ class ActionType extends SecureTypes\PHP5String
                 $this->value = $actionType;
                 break;
             default:
-                throw new SecureTypes\TypeException("ActionType - Constructor Passed Parameter Is Not An ActionType");
+                throw new Types\TypeException("ActionType - Constructor Passed Parameter Is Not An ActionType");
         }
     }
 }

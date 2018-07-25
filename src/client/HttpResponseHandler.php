@@ -6,7 +6,7 @@
  * Time: 12:07 PM
  */
 
-namespace SecureMessaging\Lib;
+namespace SecureMessaging\Client;
 
 use Psr\Http\Message\ResponseInterface;
 

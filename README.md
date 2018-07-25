@@ -5,7 +5,7 @@ API.
 The project is currently in Alpha. Although there is now working portions of the project, it is not version 1.0.0
 
 # Prerequisites
-To use the secure-messaging-php SDK you will need a PHP 5.6 installed along with Composer. In order to then use the SDK
+To use the secure-messaging-php SDK you will need a PHP 5.6+ installed along with Composer. In order to then use the SDK
 you will also need a valid Secure Messaging Account.
 
 You can install Composer here: [https://getcomposer.org/](https://getcomposer.org/)
@@ -14,7 +14,12 @@ You can install Composer here: [https://getcomposer.org/](https://getcomposer.or
 
 ## Create A .phar File
 You can compile the project into a phar file for use with your own projects.
-From composer you will need to globally install box
+First, install all project dependencies with composer
+```$xslt
+composer install
+```
+Then globally install box to build the phar file. Make sure to not install it locally, as this may cause
+conflicts in the packaging where box's binaries are also included in the PHP SDK's phar.
 ```$xslt
 composer global require kherge/box --prefer-source
 ```
@@ -28,7 +33,7 @@ root. Copy the file and import it into your project. An example of what that may
 ```php
 require_once("./secure-messaging-php.phar");
 
-use SecureMessaging\CCC\ServiceCodeResolver;
+use SecureMessaging\SecureMessenger;
 
 $secureMessenger = SecureMessenger::resolveViaServiceCode("<portalcode>");
 // do something with the secure messenger
@@ -44,6 +49,7 @@ OR from the project root
 ```$xslt
 php ./composer.phar install
 ```
+From here, all dependencies have been installed, you can call the library components from the project root
 
 # Usage
 For examples on how to use the supported features in the PHP SDK, see the unit tests folders.

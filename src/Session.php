@@ -15,15 +15,18 @@ class Session
 
     private $sessionToken;
     private $messagingApiBaseUrl;
+    private $emailAddress;
     //private $portalCode;
     //private $baseURL;
     //private $apiBaseURL;
 
-    public function __construct($sessionToken, $messagingApiBaseUrl){
+    public function __construct($sessionToken, $messagingApiBaseUrl, $emailAddress){
         $this->sessionToken = $sessionToken;
         //$this->portalCode = $portalCode;
         $this->messagingApiBaseUrl = $messagingApiBaseUrl;
         //$this->apiBaseURL = $baseURL . "/" . $portalCode . "/api";
+
+        $this->emailAddress = $emailAddress;
     }
 
     public function getSessionToken(){
@@ -32,5 +35,9 @@ class Session
 
     public function getAPIBaseURL(){
         return $this->messagingApiBaseUrl;
+    }
+
+    public function getEmailAddress(){
+        return $this->emailAddress;
     }
 }

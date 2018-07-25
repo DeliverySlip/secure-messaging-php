@@ -11,7 +11,7 @@ namespace SecureMessaging\SecureTypes;
 use SecureMessaging\SecureTypes;
 use SecureMessaging\Lib\ActionTypeEnum;
 
-class ActionType extends SecureTypes\String
+class ActionType extends SecureTypes\PHP5String
 {
 
     public function __construct($actionType){
@@ -19,16 +19,16 @@ class ActionType extends SecureTypes\String
 
         switch($actionType){
 
-            case ActionTypeEnum::NEW:
+            case ActionTypeEnum::ACTIONTYPE_NEW:
                 $this->value = $actionType;
                 break;
-            case ActionTypeEnum::FORWARD:
+            case ActionTypeEnum::ACTIONTYPE_FORWARD:
                 $this->value = $actionType;
                 break;
-            case ActionTypeEnum::REPLY:
+            case ActionTypeEnum::ACTIONTYPE_REPLY:
                 $this->value = $actionType;
                 break;
-            case ActionTypeEnum::REPLYALL:
+            case ActionTypeEnum::ACTIONTYPE_REPLYALL:
                 $this->value = $actionType;
                 break;
             default:

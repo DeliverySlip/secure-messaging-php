@@ -15,4 +15,8 @@ class BuildVersion
     public static function getBuildVersion(){
         return "0.1.0";
     }
+
+    public static function getBuildName(){
+        return "secure-messenger-php";
+    }
 }

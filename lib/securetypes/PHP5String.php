@@ -11,14 +11,14 @@ use SecureMessaging\SecureTypes;
  * Date: 14/04/16
  * Time: 10:12 PM
  */
-class String extends SecureTypes\Primitive
+class PHP5String extends SecureTypes\Primitive
 {
 
     public function __construct($string){
         if(is_string($string)){
             $this->value = $string;
         }else{
-            throw new SecureTypes\TypeException("String - Constructor Passed Parameter Is Not A String");
+            throw new SecureTypes\TypeException("PHP5String - Constructor Passed Parameter Is Not A PHP5String");
         }
     }
 

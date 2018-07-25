@@ -11,6 +11,9 @@ namespace SecureMessaging\Lib;
 class HttpRequestHandler
 {
     private $baseUrl = null;
+    private $headerCallback = null;
+
+
 
     public function __construct($baseUrl)
     {
@@ -21,13 +24,26 @@ class HttpRequestHandler
         return $this->baseUrl;
     }
 
-    public function get($requestUrl, $requestHeaders = null){
+
+    public function setHeaderRequestEventListener($callback){
+        $this->headerCallback = $callback;
+    }
+
+    public function get($requestUrl, array $requestHeaders = []){
 
         $client = GuzzleClientSingleton::getInstance();
 
+        $additionalHeaders = [];
+        if($this->headerCallback != null){
+            $callback = $this->headerCallback;
+            $additionalHeaders = $callback();
+        }
+
+        $allHeaders = array_merge($additionalHeaders, $requestHeaders);
+
         $options = [];
-        if($requestHeaders != null){
-            $options["headers"] = $requestHeaders;
+        if(count($allHeaders) > 0){
+            $options["headers"] = $allHeaders;
         }
 
         $response = $client->get($this->baseUrl . "/" . $requestUrl, $options);
@@ -36,13 +52,21 @@ class HttpRequestHandler
 
     }
 
-    public function post($requestUrl, array $requestHeaders = null, $requestObject = null){
+    public function post($requestUrl, $requestObject = null, array $requestHeaders = []){
 
         $client = GuzzleClientSingleton::getInstance();
 
+        $additionalHeaders = [];
+        if($this->headerCallback != null){
+            $callback = $this->headerCallback;
+            $additionalHeaders = $callback();
+        }
+
+        $allHeaders = array_merge($additionalHeaders, $requestHeaders);
+
         $options = [];
-        if($requestHeaders != null){
-            $options["headers"] = $requestHeaders;
+        if(count($allHeaders) > 0){
+            $options["headers"] = $allHeaders;
         }
 
         if($requestObject != null){
@@ -55,13 +79,21 @@ class HttpRequestHandler
         return new HttpResponseHandler($response);
     }
 
-    public function put($requestUrl, array $requestHeaders = null, $requestObject = null){
+    public function put($requestUrl, $requestObject = null, array $requestHeaders = []){
 
         $client = GuzzleClientSingleton::getInstance();
 
+        $additionalHeaders = [];
+        if($this->headerCallback != null){
+            $callback = $this->headerCallback;
+            $additionalHeaders = $callback();
+        }
+
+        $allHeaders = array_merge($additionalHeaders, $requestHeaders);
+
         $options = [];
-        if($requestHeaders != null){
-            $options["headers"] = $requestHeaders;
+        if(count($allHeaders) > 0){
+            $options["headers"] = $allHeaders;
         }
 
         if($requestObject != null){
@@ -74,13 +106,22 @@ class HttpRequestHandler
         return new HttpResponseHandler($response);
     }
 
-    public function delete($requestUrl, array $requestHeaders = null){
+    public function delete($requestUrl, array $requestHeaders = []){
 
         $client = GuzzleClientSingleton::getInstance();
 
+        $additionalHeaders = [];
+        if($this->headerCallback != null){
+
+            $callback = $this->headerCallback;
+            $additionalHeaders = $callback();
+        }
+
+        $allHeaders = array_merge($additionalHeaders, $requestHeaders);
+
         $options = [];
-        if($requestHeaders != null){
-            $options["headers"] = $requestHeaders;
+        if(count($allHeaders) > 0){
+            $options["headers"] = $allHeaders;
         }
 
         $response = $client->delete($this->baseUrl . "/" . $requestUrl, $options);

@@ -8,50 +8,41 @@
 
 namespace SecureMessaging;
 
-//TODO: generate a secure message, execute the appropriate precreate message process here before returning the secure message
 use GuzzleHttp\Client;
 use SecureMessaging\Lib\ActionTypeEnum;
 use SecureMessaging\SecureTypes;
+use SecureMessaging\SecureTypes\ActionType;
 
 class SecureMessageFactory
 {
 
-    public static function createNewMessage(Session $session){
-        //$secureMessage = new SecureMessage(new ActionType(ActionTypeEnum::NEW));
+    public static function createNewMessage(SecureMessenger $messenger){
 
-        $requestBody = new \stdClass();
-        $requestBody->actionCode = "" . ActionTypeEnum::ACTIONTYPE_NEW;
+        $preCreateConfiguration = new PreCreateConfiguration();
+        $preCreateConfiguration->setActionCode(new ActionType(ActionTypeEnum::ACTIONTYPE_NEW));
 
-        $guzzleClient = new Client();
-
-        $response = $guzzleClient->request("POST", $session->getAPIBaseURL() . "/v1/messages", [
-            "headers" => [
-                "x-sm-client-name" => "secure-messaging-php",
-                "x-sm-session-token" => $session->getSessionToken()->toString()
-            ],
-            "json" => (Array)$requestBody
-        ]);
-
-        if($response->getStatusCode() == 200){
-
-            $jsonResponse = $response->getBody()->getContents();
-            $jsonObject = json_decode($jsonResponse);
-
-            $secureMessage = new SecureMessage($jsonObject->messageGuid);
-            return $secureMessage;
-
-        }else{
-            return null;
-        }
-
+        $secureMessage = $messenger->preCreateMessage($preCreateConfiguration);
+        return $secureMessage;
     }
 
-    public static function createReplyToMessage(Session $session, SecureMessage $message){
-        throw new \BadMethodCallException("SecureMessageFactory - createReplyToMessage - Method Not Implemented");
+    public static function createReplyToMessage(SecureMessenger $messenger, SecureMessage $message){
+
+        $preCreateConfiguration = new PreCreateConfiguration();
+        $preCreateConfiguration->setActionCode(new ActionType(ActionTypeEnum::ACTIONTYPE_REPLY));
+        $preCreateConfiguration->setParentGuid($message->getMessageGuid());
+
+        $secureMessage = $messenger->preCreateMessage($preCreateConfiguration);
+        return $secureMessage;
     }
 
-    public static function createReplyAllToMessage(Session $session, SecureMessage $message){
-        throw new \BadMethodCallException("SecureMessageFactory - createReplyAllToMessage - Method Not Implemented");
+    public static function createReplyAllToMessage(SecureMessenger $messenger, SecureMessage $message){
+
+        $preCreateConfiguration = new PreCreateConfiguration();
+        $preCreateConfiguration->setActionCode(new ActionType(ActionTypeEnum::ACTIONTYPE_REPLYALL));
+        $preCreateConfiguration->setParentGuid($message->getMessageGuid());
+
+        $secureMessage = $messenger->preCreateMessage($preCreateConfiguration);
+        return $secureMessage;
     }
 
 

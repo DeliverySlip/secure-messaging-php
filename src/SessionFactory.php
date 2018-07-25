@@ -11,6 +11,7 @@ namespace SecureMessaging;
 use SecureMessaging\Lib\HttpRequestHandler;
 use SecureMessaging\SecureTypes;
 use GuzzleHttp\Client;
+use SecureMessaging\Utils\BuildVersion;
 
 class SessionFactory
 {
@@ -20,12 +21,20 @@ class SessionFactory
     public static function createSession(Credentials $credentials, $messagingApiBaseUrl){
 
         $requestHandler = new HttpRequestHandler($messagingApiBaseUrl);
-        $responseHandler = $requestHandler->post("/login", null,
+        $responseHandler = $requestHandler->post("/login",
             $credentials->generateRequestObjectForCredentials());
 
         if($responseHandler->getStatusCode() == 200){
             $jsonObject = $responseHandler->getJsonBody();
-            return new Session($jsonObject["sessionToken"], $messagingApiBaseUrl);
+
+            $responseHandler = $requestHandler->get("/user/settings", [
+                "x-sm-session-token" => $jsonObject["sessionToken"],
+                "x-sm-client-name" => BuildVersion::getBuildName(),
+                "x-sm-client-version" => BuildVersion::getBuildVersion()
+            ]);
+
+            return new Session($jsonObject["sessionToken"], $requestHandler->getBaseURL(),
+                $responseHandler->getJsonBody()["emailAddress"]);
         }else{
             return null;
         }
@@ -33,12 +42,20 @@ class SessionFactory
 
     public static function createSessionWithRequestHandler(Credentials $credentials, HttpRequestHandler $requestHandler){
 
-        $responseHandler = $requestHandler->post("/login", null,
+        $responseHandler = $requestHandler->post("/login",
             $credentials->generateRequestObjectForCredentials());
 
         if($responseHandler->getStatusCode() == 200){
             $jsonObject = $responseHandler->getJsonBody();
-            return new Session($jsonObject["sessionToken"], $requestHandler->getBaseURL());
+
+            $responseHandler = $requestHandler->post("/user/settings",null, [
+                "x-sm-session-token" => $jsonObject["sessionToken"],
+                "x-sm-client-name" => BuildVersion::getBuildName(),
+                "x-sm-client-version" => BuildVersion::getBuildVersion()
+            ]);
+
+            return new Session($jsonObject["sessionToken"], $requestHandler->getBaseURL(),
+                $responseHandler->getJsonBody()["emailAddress"]);
         }else{
             return null;
         }

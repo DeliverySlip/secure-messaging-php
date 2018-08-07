@@ -10,6 +10,10 @@ use SecureMessaging\Types\ActionType;
 use SecureMessaging\Types\BodyFormatType;
 use SecureMessaging\Enums\BodyFormatEnum;
 use SecureMessaging\SecureMessageFactory;
+use SecureMessaging\SecureMessageOptions;
+use SecureMessaging\Types\FyeoType;
+use SecureMessaging\Enums\FyeoTypeEnum;
+
 
 /**
  * Created by PhpStorm.
@@ -26,6 +30,8 @@ class SendMessageTest extends PHPUnit_Framework_TestCase
     public static $portalCode;
     public static $recipientEmail;
 
+    public static $password;
+
     public static function setUpBeforeClass(){
         try{
             GuzzleClientSingleton::disableCertificateVerification();
@@ -34,6 +40,7 @@ class SendMessageTest extends PHPUnit_Framework_TestCase
             $username = $ini_array["username"];
             $password = $ini_array["password"];
 
+            self::$password = $password;
 
             self::$recipientEmail = $ini_array["recipient"];
             self::$portalCode = $ini_array["servicecode"];
@@ -79,6 +86,67 @@ class SendMessageTest extends PHPUnit_Framework_TestCase
         $secureMessage->setSubject("DeliverySlip PHP Example");
         $secureMessage->setBody("Hello Test Message From DeliverySlip PHP Example");
         $secureMessage->setBodyFormat(new BodyFormatType(BodyFormatEnum::TEXT));
+
+        $savedMessage = $messenger->saveMessage($secureMessage);
+        $messenger->sendMessage($savedMessage);
+    }
+
+    public function testSendFYEOMessageAccountPassword(){
+        $messenger = SecureMessenger::resolveViaServiceCode(self::$portalCode);
+        $messenger->login(self::$credentials);
+
+        $secureMessage = SecureMessageFactory::createNewMessage($messenger);
+
+        $secureMessage->setTo([self::$recipientEmail]);
+        $secureMessage->setSubject("DeliverySlip PHP Example");
+        $secureMessage->setBody("Hello Test Message From DeliverySlip PHP Example");
+        $secureMessage->setBodyFormat(new BodyFormatType(BodyFormatEnum::TEXT));
+
+        $messageOptions = new SecureMessageOptions();
+        $messageOptions->setFYEOType(new FyeoType(FyeoTypeEnum::ACCOUNTPASSWORD));
+
+        $secureMessage->setMessageOptions($messageOptions);
+        $secureMessage->setPassword(self::$password);
+
+        $savedMessage = $messenger->saveMessage($secureMessage);
+        $messenger->sendMessage($savedMessage);
+    }
+
+    public function testSendFYEOMessageUniquePassword(){
+        $messenger = SecureMessenger::resolveViaServiceCode(self::$portalCode);
+        $messenger->login(self::$credentials);
+
+        $secureMessage = SecureMessageFactory::createNewMessage($messenger);
+
+        $secureMessage->setTo([self::$recipientEmail]);
+        $secureMessage->setSubject("DeliverySlip PHP Example");
+        $secureMessage->setBody("Hello Test Message From DeliverySlip PHP Example");
+        $secureMessage->setBodyFormat(new BodyFormatType(BodyFormatEnum::TEXT));
+
+        $messageOptions = new SecureMessageOptions();
+        $messageOptions->setFYEOType(new FyeoType(FyeoTypeEnum::UNIQUEPASSWORD));
+
+        $secureMessage->setMessageOptions($messageOptions);
+        $secureMessage->setPassword(self::$password);
+
+        $savedMessage = $messenger->saveMessage($secureMessage);
+        $messenger->sendMessage($savedMessage);
+    }
+
+    public function testSendMessageWithCRA(){
+        $messenger = SecureMessenger::resolveViaServiceCode(self::$portalCode);
+        $messenger->login(self::$credentials);
+
+        $secureMessage = SecureMessageFactory::createNewMessage($messenger);
+
+        $secureMessage->setTo([self::$recipientEmail]);
+        $secureMessage->setSubject("DeliverySlip PHP Example");
+        $secureMessage->setBody("Hello Test Message From DeliverySlip PHP Example");
+        $secureMessage->setBodyFormat(new BodyFormatType(BodyFormatEnum::TEXT));
+
+        $secureMessage->setCRACode("cracode");
+        $secureMessage->inviteNewUsers(true);
+        $secureMessage->sendNotifications(true);
 
         $savedMessage = $messenger->saveMessage($secureMessage);
         $messenger->sendMessage($savedMessage);

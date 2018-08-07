@@ -130,4 +130,39 @@ class HttpRequestHandler
 
         return new HttpResponseHandler($response);
     }
+
+    public function multipart($method = "POST", $uri, $fileName, $contents, array $requestHeaders = []){
+
+        $client = GuzzleClientSingleton::getInstance();
+
+        $additionalHeaders = [];
+        if($this->headerCallback != null){
+
+            $callback = $this->headerCallback;
+            $additionalHeaders = $callback();
+        }
+
+        $allHeaders = array_merge($additionalHeaders, $requestHeaders);
+
+        $options = [];
+        if(count($allHeaders) > 0){
+            $options["headers"] = $allHeaders;
+        }
+
+        $options['multipart'] = [
+            [
+                'name'=> 'upload',
+                'filename' => $fileName,
+                'contents' => $contents
+            ]
+        ];
+
+        $response = $client->request($method, $uri, $options);
+
+        return new HttpResponseHandler($response);
+
+
+    }
+
+
 }

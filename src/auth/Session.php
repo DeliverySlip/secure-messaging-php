@@ -8,23 +8,28 @@
 
 namespace SecureMessaging\Auth;
 
+use SecureMessaging\Client\HttpRequestHandler;
+
 class Session
 {
 
     private $sessionToken;
     private $messagingApiBaseUrl;
     private $emailAddress;
+    private $httpRequestHandler;
     //private $portalCode;
     //private $baseURL;
     //private $apiBaseURL;
 
-    public function __construct($sessionToken, $messagingApiBaseUrl, $emailAddress){
+    public function __construct($sessionToken, $messagingApiBaseUrl, $emailAddress, HttpRequestHandler $client){
         $this->sessionToken = $sessionToken;
         //$this->portalCode = $portalCode;
         $this->messagingApiBaseUrl = $messagingApiBaseUrl;
         //$this->apiBaseURL = $baseURL . "/" . $portalCode . "/api";
 
         $this->emailAddress = $emailAddress;
+
+        $this->httpRequestHandler = $client;
     }
 
     public function getSessionToken(){
@@ -37,5 +42,9 @@ class Session
 
     public function getEmailAddress(){
         return $this->emailAddress;
+    }
+
+    public function getRequestHandler(){
+        return $this->httpRequestHandler;
     }
 }

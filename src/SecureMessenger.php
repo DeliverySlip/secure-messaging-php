@@ -42,7 +42,7 @@ class SecureMessenger
             //it is a session object
             $this->session = $messagingApiBaseURLOrSessionObject;
             $this->messagingApiBaseUrl = $messagingApiBaseURLOrSessionObject->getAPIBaseURL();
-            $this->httpRequestHandler = new HttpRequestHandler($this->session->getAPIBaseURL());
+            $this->httpRequestHandler = $messagingApiBaseURLOrSessionObject->getRequestHandler();
 
             $sessionToken = $this->session->getSessionToken();
 
@@ -88,7 +88,11 @@ class SecureMessenger
         return $secureMessage;
     }
 
-    public function saveMessage(SecureMessage $message){
+    public function saveMessage($message){
+
+        if($message instanceof SavedMessage){
+            $message = $message->message;
+        }
 
         $saveMessageRequest = new SaveMessageRequest();
         $saveMessageRequest->to = $message->getTo();

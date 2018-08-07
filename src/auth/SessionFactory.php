@@ -32,7 +32,7 @@ class SessionFactory
             ]);
 
             return new Session($jsonObject["sessionToken"], $requestHandler->getBaseURL(),
-                $responseHandler->getJsonBody()["emailAddress"]);
+                $responseHandler->getJsonBody()["emailAddress"], $requestHandler);
         }else{
             return null;
         }
@@ -52,9 +52,8 @@ class SessionFactory
                 "x-sm-client-version" => BuildVersion::getBuildVersion()
             ]);
 
-
             return new Session($jsonObject["sessionToken"], $requestHandler->getBaseURL(),
-                $responseHandler->getJsonBody()["emailAddress"]);
+                $responseHandler->getJsonBody()["emailAddress"], $requestHandler);
         }else{
             return null;
         }

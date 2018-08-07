@@ -3,8 +3,10 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/auth" isTestSource="false" packagePrefix="SecureMessaging\Auth\" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ex" isTestSource="false" packagePrefix="SecureMessaging\Exceptions\" />
       <sourceFolder url="file://$MODULE_DIR$/src/models/request" isTestSource="false" packagePrefix="SecureMessaging\Models\Request\" />
       <sourceFolder url="file://$MODULE_DIR$/src/enums" isTestSource="false" packagePrefix="SecureMessaging\Enums\" />
+      <sourceFolder url="file://$MODULE_DIR$/src/attachment" isTestSource="false" packagePrefix="SecureMessaging\Attachment\" />
       <sourceFolder url="file://$MODULE_DIR$/src/types" isTestSource="false" packagePrefix="SecureMessaging\Types\" />
       <sourceFolder url="file://$MODULE_DIR$/src/client" isTestSource="false" packagePrefix="SecureMessaging\Client\" />
       <sourceFolder url="file://$MODULE_DIR$/src/models/response" isTestSource="false" packagePrefix="SecureMessaging\Models\Response\" />

@@ -100,14 +100,13 @@ class AttachmentManager
 
         if($this->attachmentsHaveBeenPreCreated()){
             //make an API call to delete this
-            $url = "/attachments/" . $attachmentBeingDeleted["attachmentGuid"];
+            $url = "/messages/" . $this->message->getMessageGuid() . "/attachments/" . $attachmentBeingDeleted["attachmentGuid"];
             $responseHandler = $this->client->delete($url);
 
-            //FIXME: Some reason this returns 404 ?
-            /*if($responseHandler->getStatusCode() == 200 || $responseHandler->getStatusCode() == 404){
+            if($responseHandler->getStatusCode() != 200){
 
                 return false;
-            }*/
+            }
         }
         //else we don't need to do anything else
         unset($this->attachmentList[$attachmentListIndex]);

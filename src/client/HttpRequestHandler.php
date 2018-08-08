@@ -15,8 +15,6 @@ class HttpRequestHandler
     private $baseUrl = null;
     private $headerCallback = null;
 
-
-
     public function __construct($baseUrl)
     {
         $this->baseUrl = $baseUrl;

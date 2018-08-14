@@ -105,6 +105,8 @@ class AttachmentTests extends PHPUnit_Framework_TestCase
 
         self::assertTrue($attachmentManager->addAttachmentFile($fp, "yellow.jpg"));
         self::assertTrue($attachmentManager->deleteAttachmentFile($fp));
+
+        $attachmentManager->closeAllFilePointersToAttachments();
     }
 
     public static function testDeleteBeforeUploadAttachment(){
@@ -130,6 +132,8 @@ class AttachmentTests extends PHPUnit_Framework_TestCase
         self::assertTrue($attachmentManager->addAttachmentFile($fp, "yellow.jpg"));
         $attachmentManager->preCreateAllAttachments();
         self::assertTrue($attachmentManager->deleteAttachmentFile($fp));
+
+        $attachmentManager->closeAllFilePointersToAttachments();
     }
 
     public static function testDeleteAfterUploadAttachment(){
@@ -156,6 +160,71 @@ class AttachmentTests extends PHPUnit_Framework_TestCase
         $attachmentManager->preCreateAllAttachments();
         $attachmentManager->uploadAllAttachments();
         self::assertTrue($attachmentManager->deleteAttachmentFile($fp));
+
+        $attachmentManager->closeAllFilePointersToAttachments();
+    }
+
+    public static function testDeleteAttachmentWithAttachmentBeforeUploadGuid(){
+
+        $secureMessagingApiBaseURL = ServiceCodeResolver::resolve(self::$portalCode);
+        $httpRequestHandler = new HttpRequestHandler($secureMessagingApiBaseURL);
+        $session = SessionFactory::createSessionWithRequestHandler(self::$credentials, $httpRequestHandler);
+
+        $messenger = new SecureMessenger($session);
+        $secureMessage = SecureMessageFactory::createNewMessage($messenger);
+
+        $secureMessage->setTo([self::$recipientEmail]);
+        $secureMessage->setSubject("DeliverySlip PHP Example");
+        $secureMessage->setBody("Hello Test Message From DeliverySlip PHP Example");
+        $secureMessage->setBodyFormat(new BodyFormatType(BodyFormatEnum::TEXT));
+
+        $savedMessage = $messenger->saveMessage($secureMessage);
+
+        $attachmentManager = AttachmentManager::instantiateWithSavedMessage($savedMessage, $httpRequestHandler);
+
+        $fp = fopen("./resources/yellow.jpg", "r");
+
+        self::assertTrue($attachmentManager->addAttachmentFile($fp, "yellow.jpg"));
+        $attachmentManager->preCreateAllAttachments();
+
+        $preCreatedAttachments = $attachmentManager->getAllPreCreatedAttachments();
+        foreach($preCreatedAttachments as $preCreatedAttachment){
+            $attachmentManager->deleteAttachmentFileMatchingGuid($preCreatedAttachment["attachmentGuid"]);
+        }
+
+        $attachmentManager->closeAllFilePointersToAttachments();
+    }
+
+    public static function testDeleteAttachmentWithAttachmentAfterUploadGuid(){
+
+        $secureMessagingApiBaseURL = ServiceCodeResolver::resolve(self::$portalCode);
+        $httpRequestHandler = new HttpRequestHandler($secureMessagingApiBaseURL);
+        $session = SessionFactory::createSessionWithRequestHandler(self::$credentials, $httpRequestHandler);
+
+        $messenger = new SecureMessenger($session);
+        $secureMessage = SecureMessageFactory::createNewMessage($messenger);
+
+        $secureMessage->setTo([self::$recipientEmail]);
+        $secureMessage->setSubject("DeliverySlip PHP Example");
+        $secureMessage->setBody("Hello Test Message From DeliverySlip PHP Example");
+        $secureMessage->setBodyFormat(new BodyFormatType(BodyFormatEnum::TEXT));
+
+        $savedMessage = $messenger->saveMessage($secureMessage);
+
+        $attachmentManager = AttachmentManager::instantiateWithSavedMessage($savedMessage, $httpRequestHandler);
+
+        $fp = fopen("./resources/yellow.jpg", "r");
+
+        self::assertTrue($attachmentManager->addAttachmentFile($fp, "yellow.jpg"));
+        $attachmentManager->preCreateAllAttachments();
+        $attachmentManager->uploadAllAttachments();
+
+        $preCreatedAttachments = $attachmentManager->getAllPreCreatedAttachments();
+        foreach($preCreatedAttachments as $preCreatedAttachment){
+            self::assertTrue($attachmentManager->deleteAttachmentFileMatchingGuid($preCreatedAttachment["attachmentGuid"]));
+        }
+
+        $attachmentManager->closeAllFilePointersToAttachments();
     }
 
 

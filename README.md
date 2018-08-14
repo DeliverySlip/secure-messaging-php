@@ -12,6 +12,17 @@ You can install Composer here: [https://getcomposer.org/](https://getcomposer.or
 
 # Setup
 
+## Composer
+As of 0.2.0 you can add the Secure Messaging PHP SDK via Composer! Add the following to your composer
+dependencies:
+```$xslt
+"require": {
+        ...
+        "deliveryslip/secure-messaging-php":"0.2.0"
+    }
+```
+Then update composer. Replace `0.2.0` with the preferred version listed under the releases tab
+
 ## Create A .phar File
 You can compile the project into a phar file for use with your own projects.
 First, install all project dependencies with composer
@@ -80,3 +91,4 @@ can then be simply installed with phpunit
 * Jan 6, 2017  - Currently this project is under development and is not usable at this time
 * July 25, 2018 - Alpha release of the PHP SDK. Primary focus is development of equivalent features available
 in the Java and C# SDKs
+* August 14, 2018 - Alpha release 0.2.0 of the PHP SDK.
